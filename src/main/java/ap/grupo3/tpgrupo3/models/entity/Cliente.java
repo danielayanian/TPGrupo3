@@ -38,10 +38,10 @@ public class Cliente {
             joinColumns = @JoinColumn(name = "cliente_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="servicio_id", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
     private List<Servicio> serviciosContratados;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="cliente")
     private List<Incidente> incidentes;
 
 }

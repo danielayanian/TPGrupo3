@@ -22,7 +22,11 @@ public class Usuario {
     @Column(name="password")
     private String password;
 
-    @Column(name="rol_id")
-    private int rol_id;
+    //@Column(name="rol_id")
+    //private int rol_id;
+
+    @ManyToOne
+    @JoinColumn(name="rol_id")
+    private Rol rol;
 
 }

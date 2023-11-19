@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,5 +20,8 @@ public class Rol {
 
     @Column(name="rol")
     private String rol;
+
+    @OneToMany(mappedBy="rol")
+    private List<Usuario> usuarios;
 
 }

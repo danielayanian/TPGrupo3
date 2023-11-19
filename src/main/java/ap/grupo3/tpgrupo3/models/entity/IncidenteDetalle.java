@@ -19,13 +19,25 @@ public class IncidenteDetalle {
     @Column(name="descripcion")
     private String descripcion;
 
-    @Column(name="servicio_id")
-    private int servicio_id;
+    //@Column(name="servicio_id")
+    //private int servicio_id;
 
-    @Column(name="incidente_id")
-    private int incidente_id;
+    @ManyToOne
+    @JoinColumn(name="servicio_id")
+    private Servicio servicio;
 
-    @Column(name="tipoProblema_id")
-    private int tipoProblema_id;
+    //@Column(name="incidente_id")
+    //private int incidente_id;
+
+    @ManyToOne
+    @JoinColumn(name="incidente_id")
+    private Incidente incidente;
+
+    //@Column(name="tipoProblema_id")
+    //private int tipoProblema_id;
+
+    @ManyToOne
+    @JoinColumn(name="tipoProblema_id")
+    private TipoProblema tipoProblema;
 
 }

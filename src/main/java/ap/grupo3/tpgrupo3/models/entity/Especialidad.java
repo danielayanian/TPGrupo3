@@ -25,14 +25,15 @@ public class Especialidad {
             joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="tecnico_id", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
     private List<Tecnico> tecnicosDeLaEspecialidad;
 
     @JoinTable(
-            name = "tecnico_especialidad",
+            name = "problema_especialidad",
             joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="tipoProblema_id", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
     private List<TipoProblema> problemasDeLaEspecialidad;
+
 }
