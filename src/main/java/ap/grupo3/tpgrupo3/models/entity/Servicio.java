@@ -26,7 +26,8 @@ public class Servicio {
             joinColumns = @JoinColumn(name = "servicio_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="cliente_id", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
+    //@ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
+    @ManyToMany()
     private List<Cliente> clientes;
 
     @OneToMany(mappedBy="servicio")

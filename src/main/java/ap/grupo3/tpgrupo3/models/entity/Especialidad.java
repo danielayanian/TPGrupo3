@@ -25,7 +25,8 @@ public class Especialidad {
             joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="tecnico_id", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
+    //@ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
+    @ManyToMany()
     private List<Tecnico> tecnicosDeLaEspecialidad;
 
     @JoinTable(
@@ -33,7 +34,8 @@ public class Especialidad {
             joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="tipoProblema_id", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
+    //@ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
+    @ManyToMany()
     private List<TipoProblema> problemasDeLaEspecialidad;
 
 }
