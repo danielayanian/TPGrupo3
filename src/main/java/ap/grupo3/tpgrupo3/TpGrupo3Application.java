@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TpGrupo3Application {
 
     public static void main(String[] args) {
+
         SpringApplication.run(TpGrupo3Application.class, args);
+
     }
 
 }

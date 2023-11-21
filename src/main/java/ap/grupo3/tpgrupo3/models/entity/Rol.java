@@ -8,20 +8,13 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Rol {
+@Table(name = "rol")
+public class Rol extends BaseEntity {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name="rol")
+    @Column(name = "rol")
     private String rol;
 
-    @OneToMany(mappedBy="rol")
+    @OneToMany(mappedBy="rol", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
 }

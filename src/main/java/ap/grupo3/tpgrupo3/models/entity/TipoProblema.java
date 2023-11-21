@@ -8,32 +8,25 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class TipoProblema {
+@Table(name = "tipo_problema")
+public class TipoProblema extends BaseEntity {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name="tiempoEstimado")
+    @Column(name = "tiempoEstimado")
     private int tiempoEstimado;//En dias
 
-    @JoinTable(
+    /*@JoinTable(
             name = "problema_especialidad",
             joinColumns = @JoinColumn(name = "tipoProblema_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="especialidad_id", nullable = false)
+            inverseJoinColumns = @JoinColumn(name = "especialidad_id", nullable = false)
     )
-    //@ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)*/
+    @ManyToMany(mappedBy = "problemasDeLaEspecialidad", fetch = FetchType.LAZY)
     private List<Especialidad> especialidadesQueResuelvenElProblema;
 
-    @OneToMany(mappedBy="tipoProblema")
+    @OneToMany(mappedBy = "tipoProblema", fetch = FetchType.LAZY)
     private List<IncidenteDetalle> detallesDelIncidente;
 
 }

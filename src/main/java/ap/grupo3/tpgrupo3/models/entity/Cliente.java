@@ -1,5 +1,6 @@
 package ap.grupo3.tpgrupo3.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,41 +9,34 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Cliente {
+@Table(name = "cliente")
+public class Cliente extends BaseEntity {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name="razonSocial")
+    @Column(name = "razonSocial")
     private String razonSocial;
 
-    @Column(name="CUIT")
+    @Column(name = "CUIT")
     private String CUIT;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="telefono")
+    @Column(name = "telefono")
     private String telefono;
 
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "servicio_cliente",
             joinColumns = @JoinColumn(name = "cliente_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="servicio_id", nullable = false)
+            inverseJoinColumns = @JoinColumn(name = "servicio_id", nullable = false)
     )
-    //@ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
-    @ManyToMany()
+    @OrderColumn(name = "id")
     private List<Servicio> serviciosContratados;
 
-    @OneToMany(mappedBy="cliente")
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Incidente> incidentes;
 
 }

@@ -8,49 +8,36 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Incidente {
+@Table(name = "incidente")
+public class Incidente extends BaseEntity {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name="alias")
+    @Column(name = "alias")
     private String alias;
 
-    @Column(name="fechaEstimada")
+    @Column(name = "fechaEstimada")
     private Date fechaEstimada;
 
-    @Column(name="fechaDesde")
+    @Column(name = "fechaDesde")
     private Date fecheDesde;
 
-    @Column(name="fechaHasta")
+    @Column(name = "fechaHasta")
     private Date fechaHasta;
 
-    @Column(name="resuelto")
-    private int resuelto;//O boolean?
+    @Column(name = "resuelto")
+    private int resuelto;
 
-    @Column(name="consideraciones")
+    @Column(name = "consideraciones")
     private String consideraciones;
 
-    //@Column(name="cliente_id")
-    //private int cliente_id;
-
-    @ManyToOne
-    @JoinColumn(name="cliente_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    //@Column(name="tecnico_id")
-    //private int tecnico_id;
-
-    @ManyToOne
-    @JoinColumn(name="tecnico_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
 
-    @OneToMany(mappedBy="incidente")
+    @OneToMany(mappedBy = "incidente", fetch = FetchType.LAZY)
     private List<IncidenteDetalle> detallesDelIncidente;
 
 }

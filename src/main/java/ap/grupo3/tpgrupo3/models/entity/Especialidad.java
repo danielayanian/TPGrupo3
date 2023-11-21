@@ -7,17 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Especialidad {
+@Table(name = "especialidad")
+public class Especialidad extends BaseEntity {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombre;
 
     @JoinTable(
@@ -25,17 +18,15 @@ public class Especialidad {
             joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name="tecnico_id", nullable = false)
     )
-    //@ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Tecnico> tecnicosDeLaEspecialidad;
 
     @JoinTable(
             name = "problema_especialidad",
             joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="tipoProblema_id", nullable = false)
+            inverseJoinColumns = @JoinColumn(name = "tipoProblema_id", nullable = false)
     )
-    //@ManyToMany(cascade = CascadeType.ALL) //Ver si va o no lo de cascade
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<TipoProblema> problemasDeLaEspecialidad;
 
 }

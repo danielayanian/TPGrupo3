@@ -6,27 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Usuario {
+@Table(name = "usuario")
+public class Usuario extends BaseEntity {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    //@Column(name="rol_id")
-    //private int rol_id;
-
-    @ManyToOne
-    @JoinColumn(name="rol_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 
 }
