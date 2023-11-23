@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "servicio")
@@ -20,8 +21,8 @@ public class Servicio extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "cliente_id", nullable = false)
     )
     @ManyToMany(fetch = FetchType.LAZY)*/
-    @ManyToMany(mappedBy = "serviciosContratados", fetch = FetchType.LAZY)
-    private List<Cliente> clientes;
+    @ManyToMany(mappedBy = "serviciosContratados")
+    private Set<Cliente> clientes;
 
     @OneToMany(mappedBy = "servicio", fetch = FetchType.LAZY)
     private List<IncidenteDetalle> detallesDelIncidente;
