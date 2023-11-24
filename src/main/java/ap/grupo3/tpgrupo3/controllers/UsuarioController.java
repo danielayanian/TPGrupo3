@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -35,29 +34,36 @@ public class UsuarioController {
 
         model.addAttribute("usuarios", usuarios);
 
-        return "login";
+        return "varias/login";
 
     }
 
     @PostMapping(value = "/verificarLogin")
-    public String verificarLogin(@RequestParam("id") Long id,
+    public String verificarLogin(@RequestParam("id") String id,
                                  @RequestParam("username") String username,
                                  @RequestParam("password") String password, Model model){
-        //model.addAttribute("nombre", username);
-        //Long x = Long.valueOf(1);
-        Usuario usuario = usuarioService.buscarUsuario(id);
+
+        Long idLong;
+        try {
+            idLong = Long.parseLong(id);
+        } catch(NumberFormatException excepcion) {
+            return "varias/loginIncorrecto";
+        }
+
+        Usuario usuario = usuarioService.buscarUsuario(idLong);
+        if(usuario == null) return "varias/loginIncorrecto";
         //verificar login y si es valido devolver pagina correspondiente segun rol
         if(usuario.getUsername().equals(username) && usuario.getPassword().equals(password)){
             model.addAttribute("mensaje", "Login realizado exitosamente");
             model.addAttribute("username", usuario.getUsername());
             model.addAttribute("rol", usuario.getRol().getRol());
-            if(usuario.getRol().getRol().equals("Area Comercial")) return "areaComercial";
-            if(usuario.getRol().getRol().equals("Area RRHH")) return "arearrhh";
-            if(usuario.getRol().getRol().equals("Mesa de Ayuda")) return "mesaAyuda";
-            if(usuario.getRol().getRol().equals("Tecnico")) return "tecnicoPage";
+            if(usuario.getRol().getRol().equals("Area Comercial")) return "areaComercial/areaComercial";
+            if(usuario.getRol().getRol().equals("Area RRHH")) return "rrhh/rrhh";
+            if(usuario.getRol().getRol().equals("Mesa de Ayuda")) return "mesaAyuda/mesaAyuda";
+            if(usuario.getRol().getRol().equals("Tecnico")) return "tecnicos/tecnicos";
         }
 
-        return "areaComercial";
+        return "varias/loginIncorrecto";
 
     }
 
