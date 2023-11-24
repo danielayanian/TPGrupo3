@@ -5,8 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "incidente_detalle")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class IncidenteDetalle extends BaseEntity {
 
     @Column(name = "descripcion")
@@ -25,5 +30,17 @@ public class IncidenteDetalle extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipoProblema_id")
     private TipoProblema tipoProblema;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BaseEntity that)) return false;
+        return this.getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
 
 }

@@ -7,8 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
 @Entity
 @Table(name = "incidente")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Incidente extends BaseEntity {
 
     @Column(name = "alias")
@@ -39,5 +44,17 @@ public class Incidente extends BaseEntity {
 
     @OneToMany(mappedBy = "incidente", fetch = FetchType.LAZY)
     private List<IncidenteDetalle> detallesDelIncidente;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BaseEntity that)) return false;
+        return this.getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
 
 }

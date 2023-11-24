@@ -2,9 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>TP Integrador - Grupo 3</title>
+    <title>TP Java Intermedio - Grupo 3</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/styles.css}">
 </head>
 <body>
-    <a href="/login">login</a>
+
+<div class="containerPrincipal">
+    <div class="container">
+
+        <p class="textoIndex1">TP Java Intermedio</p>
+        <p class="textoIndex1">Grupo 3</p>
+        <p class="textoIndex2">Integrantes:</p>
+        <span class="textoIndex3">| Ayanian, Daniel | Altamiranda, Luis | Bigeón, Juan José
+        | Lobos, Juan Ignacio |</span>
+        <br><br>
+
+        <form action="/login" class="formIndex">
+            <input type="submit" value="Ingresar" class="inputSubmitIndex">
+        </form>
+
+    </div>
+</div>
+
 </body>
 </html>
