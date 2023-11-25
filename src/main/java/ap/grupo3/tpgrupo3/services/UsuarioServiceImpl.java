@@ -4,6 +4,7 @@ import ap.grupo3.tpgrupo3.models.entity.Rol;
 import ap.grupo3.tpgrupo3.models.entity.Usuario;
 import ap.grupo3.tpgrupo3.models.repository.RolRepository;
 import ap.grupo3.tpgrupo3.models.repository.UsuarioRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +73,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         Optional<Usuario> o = usuarioRepository.findById(id);
         return o.orElse(null);
 
+    }
+
+    @Override
+    public Usuario buscarUsuarioPorUsername(String username) {
+        return null;
     }
 
     @Override

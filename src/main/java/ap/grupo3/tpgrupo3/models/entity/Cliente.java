@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "cliente")
@@ -33,13 +32,13 @@ public class Cliente extends BaseEntity {
     private String telefono;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany( fetch = FetchType.EAGER)
     @JoinTable(
             name = "servicio_cliente",
             joinColumns = @JoinColumn(name = "cliente_id"), //nullable = false
             inverseJoinColumns = @JoinColumn(name = "servicio_id") //nullable = false
     )
-    private Set<Servicio> serviciosContratados;
+    private List<Servicio> serviciosContratados;
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Incidente> incidentes;

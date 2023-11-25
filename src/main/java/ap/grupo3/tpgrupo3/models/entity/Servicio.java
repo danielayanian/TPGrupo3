@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class Servicio extends BaseEntity {
     )
     @ManyToMany(fetch = FetchType.LAZY)*/
     @ManyToMany(mappedBy = "serviciosContratados")
-    private Set<Cliente> clientes;
+    private List<Cliente> clientes;
 
     @OneToMany(mappedBy = "servicio", fetch = FetchType.LAZY)
     private List<IncidenteDetalle> detallesDelIncidente;

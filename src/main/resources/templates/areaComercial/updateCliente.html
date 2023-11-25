@@ -13,6 +13,39 @@
     <span><a href="/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">LogOut</a></span>
 </nav>
 
+<form action="/updateCliente" method="post">
+    <div class="form-group">
+        <label for="id">Id</label>
+        <input type="text" class="form-control" name="id" id="id" placeholder="Ingrese Id" required>
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese Nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="razonSocial">Razón Social</label>
+        <input type="text" class="form-control" name="razonSocial" id="razonSocial" placeholder="Ingrese Razon Social" required>
+    </div>
+    <div class="form-group">
+        <label for="cuit">CUIT</label>
+        <input type="text" class="form-control" name="cuit" id="cuit" placeholder="Ingrese CUIT" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" name="email" id="email" placeholder="Ingrese Email" required>
+    </div>
+    <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Ingrese Telefono" required>
+    </div>
+
+    <div class="form-check" th:each="servicio : ${servicios}">
+        <input class="form-check-input" type="checkbox" th:name="idChecked" th:value="${servicio.getNombre()}" th:id="${servicio.getNombre()}">
+        <label class="form-check-label" th:for="${servicio.getNombre()}" th:text="${servicio.getNombre()}"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
+</form>
 
 </body>
 </html>
