@@ -5,6 +5,8 @@ import ap.grupo3.tpgrupo3.models.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
@@ -24,5 +26,11 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void updateCliente(Cliente cliente) {
         clienteRepository.save(cliente);
+    }
+
+    @Override
+    public Cliente buscarCliente(Long id) {
+        Optional<Cliente> o = clienteRepository.findById(id);
+        return o.orElse(null);
     }
 }

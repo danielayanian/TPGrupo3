@@ -12,4 +12,6 @@ public interface ClienteService {
 
     public void updateCliente(Cliente cliente);
 
+    public Cliente buscarCliente(Long id);
+
 }
