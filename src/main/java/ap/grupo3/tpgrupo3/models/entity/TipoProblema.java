@@ -16,7 +16,7 @@ import java.util.Objects;
 public class TipoProblema extends BaseEntity {
 
     @Column(name = "nombre")
-    private String nombre;
+    private NombreProblema nombre;
 
     @Column(name = "tiempoEstimado")
     private int tiempoEstimado;//En dias

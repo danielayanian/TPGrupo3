@@ -16,14 +16,9 @@ import java.util.Objects;
 public class Especialidad extends BaseEntity {
 
     @Column(name = "nombre")
-    private String nombre;
+    private NombreEspecialidad nombre;
 
-    @JoinTable(
-            name = "tecnico_especialidad",
-            joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="tecnico_id", nullable = false)
-    )
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "especialidades")
     private List<Tecnico> tecnicosDeLaEspecialidad;
 
     @JoinTable(

@@ -32,7 +32,7 @@ public class Cliente extends BaseEntity {
     private String telefono;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToMany( fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "servicio_cliente",
             joinColumns = @JoinColumn(name = "cliente_id"), //nullable = false

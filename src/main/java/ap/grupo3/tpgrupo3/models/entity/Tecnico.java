@@ -1,5 +1,6 @@
 package ap.grupo3.tpgrupo3.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,13 +25,13 @@ public class Tecnico extends BaseEntity {
     @Column(name = "telefono")
     private String telefono;
 
-    /*@JoinTable(
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
             name = "tecnico_especialidad",
             joinColumns = @JoinColumn(name = "tecnico_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "especialidad_id", nullable = false)
+            inverseJoinColumns = @JoinColumn(name="especialidad_id", nullable = false)
     )
-    @ManyToMany(fetch = FetchType.LAZY)*/
-    @ManyToMany(mappedBy = "tecnicosDeLaEspecialidad", fetch = FetchType.LAZY)
     private List<Especialidad> especialidades;
 
     @OneToMany(mappedBy = "tecnico", fetch = FetchType.LAZY)

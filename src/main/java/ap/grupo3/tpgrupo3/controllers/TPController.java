@@ -1,10 +1,7 @@
 package ap.grupo3.tpgrupo3.controllers;
 
 import ap.grupo3.tpgrupo3.models.entity.*;
-import ap.grupo3.tpgrupo3.services.ClienteService;
-import ap.grupo3.tpgrupo3.services.RolService;
-import ap.grupo3.tpgrupo3.services.ServicioService;
-import ap.grupo3.tpgrupo3.services.UsuarioService;
+import ap.grupo3.tpgrupo3.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +27,15 @@ public class TPController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private TecnicoService tecnicoService;
+
+    @Autowired
+    private TipoProblemaService tipoProblemaService;
+
+    @Autowired
+    private EspecialidadService especialidadService;
+
     @GetMapping()
     public String index(Model model) {
         return "varias/index";
@@ -45,6 +51,10 @@ public class TPController {
             usuarioService.altaUsuariosIniciales();
             //Doy de alta los 5 servicios que brinda la empresa
             servicioService.altaDeTodosLosServicios();
+            //Doy de alta las especialidades
+            especialidadService.altaDeTodasLasEspecialidades();
+            //Doy de alta los problemas
+            tipoProblemaService.altaDeTodosLosProblemas();
         }
 
         List<Usuario> usuarios = usuarioService.obtenerListaDeUsuarios();
@@ -237,9 +247,6 @@ public class TPController {
             cliente.setTelefono(telefono);
             cliente.setServiciosContratados(serviciosContratados);
 
-            //= new Cliente(nombre, razonSocial, cuit, email, telefono, serviciosContratados, null);
-            //cliente.setId(idLong);
-
             clienteService.updateCliente(cliente);
 
             model.addAttribute("mensaje", "Cliente actualizado con éxito");
@@ -261,8 +268,64 @@ public class TPController {
 
     @GetMapping(value = "/altaTecnicoPage")
     public String altaTecnicoPage(Model model){
+
+        List<Especialidad> especialidades = especialidadService.buscarTodasLasEspecialidades();
+
+        model.addAttribute("especialidades", especialidades);
+
         return "rrhh/altaTecnico";
+
     }
+
+    @PostMapping(value = "/altaTecnico")
+    public String altaTecnico(@RequestParam(name = "nombre") String nombre,
+                              @RequestParam(name = "email") String email,
+                              @RequestParam(name = "telefono") String telefono,
+                              @RequestParam(name = "idChecked", required = false) List<String> especialidadesMarcadas,
+                              Model model) {
+
+        List<Especialidad> especialidades = new ArrayList<>();
+
+        if (especialidadesMarcadas != null) {
+
+            Long idLong = Long.parseLong("0");
+            for (String nombreEpecialidad : especialidadesMarcadas) {
+                Especialidad e = new Especialidad();
+                if (nombreEpecialidad.equals("SAP")) {
+                    idLong = Long.parseLong("1");
+                }
+                if (nombreEpecialidad.equals("TANGO")) {
+                    idLong = Long.parseLong("2");
+                }
+                if (nombreEpecialidad.equals("WINDOWS")) {
+                    idLong = Long.parseLong("3");
+                }
+                if (nombreEpecialidad.equals("MAC")) {
+                    idLong = Long.parseLong("4");
+                }
+                if (nombreEpecialidad.equals("LINUX")) {
+                    idLong = Long.parseLong("5");
+                }
+                e.setId(idLong);
+                especialidades.add(e);
+            }
+
+        }
+
+        Tecnico tecnico = new Tecnico(nombre, email, telefono, especialidades, null);
+
+        tecnicoService.altaTecnico(tecnico);
+
+        model.addAttribute("mensaje", "Técnico ingresado con éxito");
+
+        return "rrhh/mensaje";
+
+    }
+
+
+
+    //Seguir con la baja de un tecnico
+
 
     @GetMapping(value = "/bajaTecnicoPage")
     public String bajaTecnicoPage(Model model){

@@ -39,4 +39,5 @@ public class ServicioServiceImpl implements ServicioService {
     public List<Servicio> buscarTodosLosServicios() {
         return servicioRepository.findAll();
     }
+
 }

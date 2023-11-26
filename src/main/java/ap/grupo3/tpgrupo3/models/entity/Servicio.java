@@ -20,12 +20,6 @@ public class Servicio extends BaseEntity {
     @Column(name = "nombre")
     private NombreServicio nombre;
 
-    /*@JoinTable(
-            name = "servicio_cliente",
-            joinColumns = @JoinColumn(name = "servicio_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "cliente_id", nullable = false)
-    )
-    @ManyToMany(fetch = FetchType.LAZY)*/
     @ManyToMany(mappedBy = "serviciosContratados")
     private List<Cliente> clientes;
 
