@@ -9,14 +9,18 @@
 
 <nav class="navbar navbar-dark bg-dark">
     <span style="font-size: large; color: white">Técnicos</span>
+    <span><a href="/tecnicosPage" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver a Técnicos</a></span>
     <span><a href="/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">LogOut</a></span>
 </nav>
 
-<br>
+<form action="/resolverUnIncidente" method="post">
+    <div class="form-group">
+        <label for="id">Id del Técnico (no confundir con Id de Usuario)</label>
+        <input type="text" class="form-control" name="id" id="id" placeholder="Ingrese el ID" required>
+    </div>
 
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/ingresarIdTecnico" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Resolver un Incidente</a></p>
-
+    <button type="submit" class="btn btn-primary">Ver incidente pendiente</button>
+</form>
 
 </body>
 </html>

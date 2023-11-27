@@ -42,7 +42,7 @@ public class Incidente extends BaseEntity {
     @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
 
-    @OneToMany(mappedBy = "incidente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "incidente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<IncidenteDetalle> detallesDelIncidente;
 
     @Override

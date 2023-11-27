@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface UsuarioService {
 
-    public void altaUsuario(Usuario usuario);
+    public Usuario altaUsuario(Usuario usuario);
 
     public void altaUsuariosIniciales();
 

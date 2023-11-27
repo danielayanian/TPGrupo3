@@ -18,8 +18,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public void altaUsuario(Usuario usuario) {
-        usuarioRepository.save(usuario);
+    public Usuario altaUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         rol4.setRol("Tecnico");
         //rol4.setId(Long.valueOf(4));
         Usuario usuario4 = new Usuario();
-        usuario4.setUsername("pedro_tecnico");
+        usuario4.setUsername("cualquier_tecnico");
         usuario4.setPassword("1234");
         usuario4.setRol(rol4);
         altaUsuario(usuario4);

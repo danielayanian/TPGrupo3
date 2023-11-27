@@ -19,4 +19,6 @@ public interface TecnicoService {
 
     public List<Tecnico> obtenerTodosLosTecnicos();
 
+    public void altaDeVariosTecnicos();
+
 }

@@ -14,4 +14,6 @@ public interface ClienteService {
 
     public Cliente buscarCliente(Long id);
 
+    public void altaDevariosClientes();
+
 }

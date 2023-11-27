@@ -60,9 +60,9 @@ public class TPController {
             //Doy de alta los problemas
             tipoProblemaService.altaDeTodosLosProblemas();
             //Doy de alta algunos clientes
-            //clienteService.altaDevariosClientes();
+            clienteService.altaDevariosClientes();
             //Doy de alta algunos tecnicos
-            //tecnicoService.altaDeVariosTecnicos();
+            tecnicoService.altaDeVariosTecnicos();
 
         }
 
@@ -96,6 +96,7 @@ public class TPController {
             if (usuario.getRol().getRol().equals("Area Comercial")) return "areaComercial/areaComercial";
             if (usuario.getRol().getRol().equals("Area RRHH")) return "rrhh/rrhh";
             if (usuario.getRol().getRol().equals("Mesa de Ayuda")) return "mesaAyuda/mesaAyuda";
+            model.addAttribute("id", id);
             if (usuario.getRol().getRol().equals("Tecnico")) return "tecnicos/tecnicos";
         }
 
@@ -188,13 +189,13 @@ public class TPController {
         Long idLong = Long.parseLong(id);
 
         Cliente cliente = clienteService.buscarCliente(idLong);
-        if (cliente == null){
+        if (cliente == null) {
 
             model.addAttribute("mensaje", "ERROR: Cliente no existe");
 
             return "areaComercial/mensajeCliente";
 
-        }else{
+        } else {
 
             clienteService.bajaCliente(cliente);
 
@@ -274,7 +275,7 @@ public class TPController {
 
 
     @GetMapping(value = "/altaTecnicoPage")
-    public String altaTecnicoPage(Model model){
+    public String altaTecnicoPage(Model model) {
 
         List<Especialidad> especialidades = especialidadService.buscarTodasLasEspecialidades();
 
@@ -321,32 +322,33 @@ public class TPController {
 
         Tecnico tecnico = new Tecnico(nombre, email, telefono, "SI", especialidades, null);
 
+        //Doy de alta al Tecnico
         tecnicoService.altaTecnico(tecnico);
 
-        model.addAttribute("mensaje", "Técnico ingresado con éxito");
+        model.addAttribute("mensaje", "Técnico creado con éxito");
 
-        return "rrhh/mensaje";
+        return "rrhh/mensajeNuevoTecnico";
 
     }
 
     @GetMapping(value = "/bajaTecnicoPage")
-    public String bajaTecnicoPage(Model model){
+    public String bajaTecnicoPage(Model model) {
         return "rrhh/bajaTecnico";
     }
 
     @PostMapping(value = "/bajaTecnico")
-    public String bajaTecnico(@RequestParam("id") String id, Model model){
+    public String bajaTecnico(@RequestParam("id") String id, Model model) {
 
         Long idLong = Long.parseLong(id);
 
-        Tecnico tecnico =tecnicoService.buscarTecnico(idLong);
-        if (tecnico == null){
+        Tecnico tecnico = tecnicoService.buscarTecnico(idLong);
+        if (tecnico == null) {
 
             model.addAttribute("mensaje", "ERROR: Técnico no existe");
 
             return "rrhh/mensaje";
 
-        }else{
+        } else {
 
             tecnicoService.bajaTecnico(tecnico);
 
@@ -358,7 +360,7 @@ public class TPController {
     }
 
     @GetMapping(value = "/updateTecnicoPage")
-    public String updateTecnicoPage(Model model){
+    public String updateTecnicoPage(Model model) {
 
         List<Especialidad> especialidades = especialidadService.buscarTodasLasEspecialidades();
 
@@ -427,22 +429,22 @@ public class TPController {
     }
 
     @GetMapping(value = "/emitirReportes")
-    public String emitirReportes(Model model){
+    public String emitirReportes(Model model) {
         return "rrhh/reportes";
     }
 
     @GetMapping(value = "/obtenerTecnicoMasIncidentesResueltosNDias")
-    public String obtenerTecnicoMasIncidentesResueltosNDias(Model model){
+    public String obtenerTecnicoMasIncidentesResueltosNDias(Model model) {
         return "rrhh/tecnicoMasIncidentesResNDias";
     }
 
     @GetMapping(value = "/obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias")
-    public String obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias(Model model){
+    public String obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias(Model model) {
         return "rrhh/tecnicoMasIncidentesResPorEspNDias";
     }
 
     @GetMapping(value = "/obtenerTecnicoMasRapido")
-    public String obtenerTecnicoMasRapido(Model model){
+    public String obtenerTecnicoMasRapido(Model model) {
         return "rrhh/tecnicoMasRapido";
     }
 
@@ -452,7 +454,7 @@ public class TPController {
     }
 
     @GetMapping(value = "/atenderLlamadoCliente")
-    public String atenderLlamadoCliente(Model model){
+    public String atenderLlamadoCliente(Model model) {
         return "mesaAyuda/atenderLlamadoCliente";
     }
 
@@ -547,11 +549,11 @@ public class TPController {
         List<Tecnico> tecnicos = tecnicoService.obtenerTodosLosTecnicos();
         Set<Tecnico> tecnicosDisponibles = new HashSet<>();
 
-        for(Tecnico t : tecnicos){
-            for(Especialidad e : t.getEspecialidades()){
-                for(Especialidad ep : especialidadesProblema){
-                    if(e.getId().equals(ep.getId())){
-                        if((t.getDisponible()).equals("SI")){
+        for (Tecnico t : tecnicos) {
+            for (Especialidad e : t.getEspecialidades()) {
+                for (Especialidad ep : especialidadesProblema) {
+                    if (e.getId().equals(ep.getId())) {
+                        if ((t.getDisponible()).equals("SI")) {
                             tecnicosDisponibles.add(t);
                         }
                     }
@@ -572,7 +574,7 @@ public class TPController {
                                      @RequestParam(name = "idChecked", required = false) List<String> tecnicos,
                                      Model model) {
 
-        if(tecnicos == null){
+        if (tecnicos == null) {
             model.addAttribute("mensaje", "ERROR: Debe seleccionar un técnico");
             return "mesaAyuda/mensaje";
         }
@@ -611,17 +613,66 @@ public class TPController {
     }
 
 
-
-
-
     @GetMapping(value = "/tecnicosPage")
     public String tecnicosPage(Model model) {
         return "tecnicos/tecnicos";
     }
 
-    @GetMapping(value = "/resolverUnIncidente")
-    public String resolverUnIncidente(Model model){
-        return "tecnicos/resolverUnIncidente";
+    @GetMapping(value = "/ingresarIdTecnico")
+    public String ingresarIdTecnico(Model model) {
+        return "tecnicos/ingresarIdTecnico";
+    }
+
+
+
+
+
+
+
+
+    @PostMapping(value = "/resolverUnIncidente")
+    public String resolverUnIncidente(@RequestParam(name = "id") String id, Model model) {
+
+        //id es del usuario no del tecnico
+        Tecnico tecnico = tecnicoService.buscarTecnico(Long.parseLong(id));
+
+
+        if (tecnico.getIncidentes().size() != 0) {
+            Incidente incidente = tecnico.getIncidentes().get(0);
+            if(incidente.getResuelto() == 1){
+                model.addAttribute("mensaje", "No tiene incidentes pendientes");
+                return "tecnicos/mensajeSinPendientes";
+            }
+            List<IncidenteDetalle> detallesDelIncidente = incidente.getDetallesDelIncidente();
+            model.addAttribute("id", id);
+            model.addAttribute("detalleDescripcion", detallesDelIncidente.get(0).getDescripcion());
+            return "tecnicos/resolverUnIncidente";
+        } else {
+            model.addAttribute("mensaje", "No tiene incidentes pendientes");
+            return "tecnicos/mensajeSinPendientes";
+        }
+
+    }
+
+    @PostMapping(value = "/incidenteResuelto")
+    public String incidenteResuelto(@RequestParam(name = "id") String id,
+                                    @RequestParam(name = "consideraciones") String consideraciones,
+                                            Model model) {
+
+        Tecnico tecnico = tecnicoService.buscarTecnico(Long.parseLong(id));
+
+        Incidente incidente = tecnico.getIncidentes().get(0);
+
+        incidente.setConsideraciones(consideraciones);
+        incidente.setResuelto(1);
+
+        tecnico.setDisponible("SI");
+        tecnicoService.updateTecnico(tecnico);
+
+        incidenteService.updateIncidente(incidente);
+
+        return "tecnicos/incidenteResueltoYMailACliente";
+
     }
 
 }

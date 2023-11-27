@@ -21,7 +21,7 @@ public class IncidenteDetalle extends BaseEntity {
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "incidente_id")
     private Incidente incidente;
 
