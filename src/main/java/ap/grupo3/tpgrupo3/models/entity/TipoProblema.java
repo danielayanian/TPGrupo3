@@ -1,5 +1,6 @@
 package ap.grupo3.tpgrupo3.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,18 +17,18 @@ import java.util.Objects;
 public class TipoProblema extends BaseEntity {
 
     @Column(name = "nombre")
-    private NombreProblema nombre;
+    private String nombre;
 
     @Column(name = "tiempoEstimado")
     private int tiempoEstimado;//En dias
 
-    /*@JoinTable(
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
             name = "problema_especialidad",
             joinColumns = @JoinColumn(name = "tipoProblema_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "especialidad_id", nullable = false)
     )
-    @ManyToMany(fetch = FetchType.LAZY)*/
-    @ManyToMany(mappedBy = "problemasDeLaEspecialidad", fetch = FetchType.LAZY)
     private List<Especialidad> especialidadesQueResuelvenElProblema;
 
     @OneToMany(mappedBy = "tipoProblema", fetch = FetchType.LAZY)

@@ -1,6 +1,5 @@
 package ap.grupo3.tpgrupo3.services;
 
-import ap.grupo3.tpgrupo3.models.entity.NombreServicio;
 import ap.grupo3.tpgrupo3.models.entity.Servicio;
 import ap.grupo3.tpgrupo3.models.repository.ServicioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +21,11 @@ public class ServicioServiceImpl implements ServicioService {
     @Override
     public void altaDeTodosLosServicios() {
 
-        Servicio servicioSAP = new Servicio(NombreServicio.SAP, null, null);
-        Servicio sservicioTANGO = new Servicio(NombreServicio.TANGO, null, null);
-        Servicio sservicioWINDOWS = new Servicio(NombreServicio.WINDOWS, null, null);
-        Servicio sservicioMAC = new Servicio(NombreServicio.MAC, null, null);
-        Servicio sservicioLINUX = new Servicio(NombreServicio.LINUX, null, null);
+        Servicio servicioSAP = new Servicio("SAP", null, null);
+        Servicio sservicioTANGO = new Servicio("TANGO", null, null);
+        Servicio sservicioWINDOWS = new Servicio("WINDOWS", null, null);
+        Servicio sservicioMAC = new Servicio("MAC", null, null);
+        Servicio sservicioLINUX = new Servicio("LINUX", null, null);
         altaServicio(servicioSAP);
         altaServicio(sservicioTANGO);
         altaServicio(sservicioWINDOWS);
@@ -38,6 +37,11 @@ public class ServicioServiceImpl implements ServicioService {
     @Override
     public List<Servicio> buscarTodosLosServicios() {
         return servicioRepository.findAll();
+    }
+
+    @Override
+    public List<Servicio> buscarServiciosPorNombre(String nombre) {
+        return servicioRepository.findByNombre(nombre, Servicio.class);
     }
 
 }

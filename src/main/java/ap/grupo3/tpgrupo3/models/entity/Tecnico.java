@@ -25,6 +25,9 @@ public class Tecnico extends BaseEntity {
     @Column(name = "telefono")
     private String telefono;
 
+    @Column(name = "disponible")
+    private String disponible;
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -34,7 +37,7 @@ public class Tecnico extends BaseEntity {
     )
     private List<Especialidad> especialidades;
 
-    @OneToMany(mappedBy = "tecnico", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tecnico", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Incidente> incidentes;
 
     @Override

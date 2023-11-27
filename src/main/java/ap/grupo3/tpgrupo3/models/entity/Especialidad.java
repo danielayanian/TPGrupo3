@@ -1,5 +1,6 @@
 package ap.grupo3.tpgrupo3.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,17 +17,12 @@ import java.util.Objects;
 public class Especialidad extends BaseEntity {
 
     @Column(name = "nombre")
-    private NombreEspecialidad nombre;
+    private String nombre;
 
     @ManyToMany(mappedBy = "especialidades")
     private List<Tecnico> tecnicosDeLaEspecialidad;
 
-    @JoinTable(
-            name = "problema_especialidad",
-            joinColumns = @JoinColumn(name = "especialidad_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "tipoProblema_id", nullable = false)
-    )
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "especialidadesQueResuelvenElProblema", fetch = FetchType.EAGER)
     private List<TipoProblema> problemasDeLaEspecialidad;
 
     @Override

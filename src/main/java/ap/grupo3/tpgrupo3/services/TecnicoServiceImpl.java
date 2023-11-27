@@ -7,6 +7,7 @@ import ap.grupo3.tpgrupo3.models.repository.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +35,10 @@ public class TecnicoServiceImpl implements TecnicoService {
     public Tecnico buscarTecnico(Long id) {
         Optional<Tecnico> o = tecnicoRepository.findById(id);
         return o.orElse(null);
+    }
+
+    @Override
+    public List<Tecnico> obtenerTodosLosTecnicos() {
+        return tecnicoRepository.findAll();
     }
 }

@@ -18,7 +18,7 @@ import java.util.Set;
 public class Servicio extends BaseEntity {
 
     @Column(name = "nombre")
-    private NombreServicio nombre;
+    private String nombre;
 
     @ManyToMany(mappedBy = "serviciosContratados")
     private List<Cliente> clientes;

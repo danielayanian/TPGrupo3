@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Indicar Servicio y Problema</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <span style="font-size: large; color: white">Indicar Servicio y Problema</span>
+    <span><a href="/mesaAyudaPage" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver a Mesa de Ayuda</a></span>
+    <span><a href="/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">LogOut</a></span>
+</nav>
+
+<form action="/altaIncidente" method="post">
+
+    <input type="hidden" id="idCliente" name="idCliente"  th:value="${idCliente}" />
+
+    <div class="alert alert-primary" role="alert">
+        Indicar Servicio por el cual reporta Incidente (seleccionar solo uno)
+    </div>
+
+    <div class="form-check" th:each="servicio : ${serviciosContratados}">
+        <input class="form-check-input" type="checkbox" th:name="idChecked1" th:value="${servicio.getNombre()}" th:id="${servicio.getNombre()}">
+        <label class="form-check-label" th:for="${servicio.getNombre()}" th:text="${servicio.getNombre()}"></label>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label for="descripcionProblema">Descripción del Problema</label>
+        <input type="text" class="form-control" name="descripcionProblema" id="descripcionProblema" placeholder="Descripcion del Problema" required>
+    </div>
+
+    <div class="alert alert-primary" role="alert">
+        Indicar Tipo de Problema (seleccionar solo uno)
+    </div>
+
+    <div class="form-check" th:each="problema : ${tiposDeProblemas}">
+        <input class="form-check-input" type="checkbox" th:name="idChecked2" th:value="${problema.getNombre()}" th:id="${problema.getNombre()}">
+        <label class="form-check-label" th:for="${problema.getNombre()}" th:text="${problema.getNombre()}"></label>
+        <span style="color: red" th:if="${problema.getNombre()=='UN_VIRUS' || problema.getNombre()=='FALTA_RAM'}">
+            (Solo para WINDOWS, MAC o LINUX)
+        </span>
+        <span style="color: red" th:if="${problema.getNombre()=='DRIVER_INCORRECTO' || problema.getNombre()=='VENCIO_LICENCIA'}">
+            (Solo para SAP o TANGO)
+        </span>
+    </div>
+
+    <br>
+
+    <button type="submit" class="btn btn-primary">Ingresar Incidente</button>
+</form>
+
+</body>
+</html>

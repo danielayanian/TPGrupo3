@@ -38,11 +38,11 @@ public class Incidente extends BaseEntity {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
 
-    @OneToMany(mappedBy = "incidente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "incidente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<IncidenteDetalle> detallesDelIncidente;
 
     @Override
