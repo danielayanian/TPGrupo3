@@ -23,7 +23,7 @@ public class Incidente extends BaseEntity {
     private Date fechaEstimada;
 
     @Column(name = "fechaDesde")
-    private Date fecheDesde;
+    private Date fechaDesde;
 
     @Column(name = "fechaHasta")
     private Date fechaHasta;
@@ -34,7 +34,7 @@ public class Incidente extends BaseEntity {
     @Column(name = "consideraciones")
     private String consideraciones;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 

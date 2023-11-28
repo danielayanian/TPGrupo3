@@ -1,6 +1,7 @@
 package ap.grupo3.tpgrupo3.controllers;
 
 import ap.grupo3.tpgrupo3.models.entity.Especialidad;
+import ap.grupo3.tpgrupo3.models.entity.Incidente;
 import ap.grupo3.tpgrupo3.models.entity.Tecnico;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class RRHHController extends BaseController {
@@ -180,24 +183,91 @@ public class RRHHController extends BaseController {
     @GetMapping(value = "/emitirReportes")
     public String emitirReportes(Model model) {
 
+        List<Incidente> incidentes = incidenteService.buscarTodosLosIncidentes();
 
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        int milisecondsByDay = 86400000;
+
+        List<Incidente> incidentesDeHoy = incidentes.
+                stream().filter(incidente ->
+                        ((fechaActual.getTime()-incidente.getFechaDesde().getTime()) / milisecondsByDay) <= 1 )
+                .collect(Collectors.toList());
+
+        model.addAttribute("incidentes", incidentesDeHoy);
 
         return "rrhh/reportes";
 
     }
 
-    @GetMapping(value = "/obtenerTecnicoMasIncidentesResueltosNDias")
-    public String obtenerTecnicoMasIncidentesResueltosNDias(Model model) {
+    @GetMapping(value = "pedirN")
+    public String pedirN(){
+
+
+        return "rrhh/pedirN";
+    }
+
+
+    @PostMapping(value = "/obtenerTecnicoMasIncidentesResueltosNDias")
+    public String obtenerTecnicoMasIncidentesResueltosNDias(@RequestParam(name = "N") String N,
+                                                            Model model) {
+
+        List<Incidente> incidentes = incidenteService.buscarTodosLosIncidentes();
+
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        int milisecondsByDay = 86400000;
+
+        List<Incidente> incidentesDeNDiasResueltos = incidentes.
+                stream().filter(incidente ->
+                        (((fechaActual.getTime()-incidente.getFechaDesde().getTime()) / milisecondsByDay) <= Integer.parseInt(N))
+                && (incidente.getResuelto() == 1))
+                .collect(Collectors.toList());
+
+        //Seguir calculando
+
+        model.addAttribute("incidentes", incidentesDeNDiasResueltos);
+
         return "rrhh/tecnicoMasIncidentesResNDias";
     }
 
-    @GetMapping(value = "/obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias")
-    public String obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias(Model model) {
+    @GetMapping(value = "pedirNYEspecialidad")
+    public String pedirNYEspecialidad(){
+
+
+        return "rrhh/pedirNyEspecialidad";
+    }
+
+    @PostMapping(value = "/obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias")
+    public String obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias(@RequestParam(name = "N") String N,
+                                                                           @RequestParam(name = "especialidad") String especialidad,
+                                                                           Model model) {
+
+        List<Incidente> incidentes = incidenteService.buscarTodosLosIncidentes();
+
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        int milisecondsByDay = 86400000;
+
+        List<Incidente> incidentesDeNDiasResueltos = incidentes.
+                stream().filter(incidente ->
+                        (((fechaActual.getTime()-incidente.getFechaDesde().getTime()) / milisecondsByDay) <= Integer.parseInt(N))
+                                && (incidente.getResuelto() == 1))
+                .collect(Collectors.toList());
+
+        //Seguir calculando
+
+        model.addAttribute("incidentes", incidentesDeNDiasResueltos);
+
+
         return "rrhh/tecnicoMasIncidentesResPorEspNDias";
     }
 
     @GetMapping(value = "/obtenerTecnicoMasRapido")
     public String obtenerTecnicoMasRapido(Model model) {
+
+        //Obtener lista de tecnicos y sacar un promedio
+
         return "rrhh/tecnicoMasRapido";
     }
 

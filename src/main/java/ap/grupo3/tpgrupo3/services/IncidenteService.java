@@ -18,4 +18,6 @@ public interface IncidenteService {
 
     public List<IncidenteDetalle> buscarDetalles(Long id);
 
+    public List<Incidente> buscarTodosLosIncidentes();
+
 }

@@ -2,37 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Reportes de Hoy</title>
+    <title>Obtener días para informe</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 
 <nav class="navbar navbar-dark bg-dark">
-    <span style="font-size: large; color: white">Reportes de Hoy</span>
+    <span style="font-size: large; color: white">Obtener Técnico con más incidentes resueltos en N días</span>
     <span><a href="/RRHHPage" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver al Área de RRHH</a></span>
     <span><a href="/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">LogOut</a></span>
 </nav>
 
-<div class="alert alert-primary" role="alert">
-    Reporte de los incidentes del día
-</div>
+<form action="/obtenerTecnicoMasIncidentesResueltosNDias" method="post">
+    <div class="form-group">
+        <label for="N">Ingrese cantidad de días</label>
+        <input type="text" class="form-control" name="N" id="N" placeholder="Ingrese cantidad de días" required>
+    </div>
 
-<table class="table table-sm">
-    <thead>
-    <tr>
-        <th scope="col">Técnico</th>
-        <th scope="col">Resuelto? (0 = NO / 1 = SI)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="i: ${incidentes}">
-        <th scope="row" th:text="${i.getTecnico().getNombre()}"/>
-        <td th:text="${i.getResuelto()}" />
-    </tr>
-    </tbody>
-</table>
-
-<br>
+    <button type="submit" class="btn btn-primary">Ver Técnico</button>
+</form>
 
 </body>
 </html>

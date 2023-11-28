@@ -40,7 +40,7 @@ public class Cliente extends BaseEntity {
     )
     private List<Servicio> serviciosContratados;
 
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Incidente> incidentes;
 
     @Override

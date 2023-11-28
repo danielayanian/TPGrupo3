@@ -21,7 +21,6 @@ public class IncidenteServiceImpl implements IncidenteService {
         return incidenteRepository.save(incidente);
 
     }
-
     @Override
     public Incidente updateIncidente(Incidente incidente) {
         return incidenteRepository.save(incidente);
@@ -37,6 +36,11 @@ public class IncidenteServiceImpl implements IncidenteService {
     public List<IncidenteDetalle> buscarDetalles(Long id) {
         Incidente incidente = this.buscarIncidente(id);
         return incidente.getDetallesDelIncidente();
+    }
+
+    @Override
+    public List<Incidente> buscarTodosLosIncidentes() {
+        return incidenteRepository.findAll();
     }
 
 }

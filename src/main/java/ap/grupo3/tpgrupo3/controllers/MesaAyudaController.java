@@ -66,7 +66,7 @@ public class MesaAyudaController extends BaseController {
         incidente.setAlias("Incidente");
 
         Date fechaActual = new Date(System.currentTimeMillis());
-        incidente.setFecheDesde(fechaActual);
+        incidente.setFechaDesde(fechaActual);
 
         incidente.setResuelto(0);
 
@@ -154,7 +154,7 @@ public class MesaAyudaController extends BaseController {
         incidente.setTecnico(tecnico);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(incidente.getFecheDesde());
+        calendar.setTime(incidente.getFechaDesde());
 
         Long idLongTP = Long.parseLong(idTipoProblema);
         TipoProblema tipoProblema = tipoProblemaService.buscarTipoProblema(idLongTP);
@@ -172,7 +172,6 @@ public class MesaAyudaController extends BaseController {
         return "mesaAyuda/informesParaElCliente";
 
     }
-
     @PostMapping(value = "/tecnicoNotificado")
     public String tecnicoNotificado(Model model) {
         return "mesaAyuda/tecnicoNotificado";
