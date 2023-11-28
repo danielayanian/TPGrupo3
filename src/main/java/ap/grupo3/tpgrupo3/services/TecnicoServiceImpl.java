@@ -1,9 +1,8 @@
 package ap.grupo3.tpgrupo3.services;
 
-import ap.grupo3.tpgrupo3.models.entity.Cliente;
 import ap.grupo3.tpgrupo3.models.entity.Especialidad;
+import ap.grupo3.tpgrupo3.models.entity.Incidente;
 import ap.grupo3.tpgrupo3.models.entity.Tecnico;
-import ap.grupo3.tpgrupo3.models.repository.ClienteRepository;
 import ap.grupo3.tpgrupo3.models.repository.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TecnicoServiceImpl implements TecnicoService {
@@ -69,7 +69,6 @@ public class TecnicoServiceImpl implements TecnicoService {
         Tecnico t1 = new Tecnico("Rodolfo Perez", "rodo@gmail.com", "132694", "SI", especialidades1, null);
 
 
-
         List<Especialidad> especialidades2 = new ArrayList<>();
         especialidades2.add(especialidad1);
         especialidades2.add(especialidad2);
@@ -86,6 +85,20 @@ public class TecnicoServiceImpl implements TecnicoService {
         tecnicoRepository.save(t1);
         tecnicoRepository.save(t2);
         tecnicoRepository.save(t3);
+
+    }
+
+    @Override
+    public List<Incidente> obtenerIncidentesPendientes(Long id) {
+        Tecnico tecnico;
+        Optional<Tecnico> o = tecnicoRepository.findById(id);
+        if(o.isPresent()){
+            tecnico = (Tecnico)o.get();
+        }else{
+            return null;
+        }
+        List<Incidente> incidentes = tecnico.getIncidentes();
+        return incidentes.stream().filter(i -> i.getResuelto() == 0).collect(Collectors.toList());
 
     }
 }

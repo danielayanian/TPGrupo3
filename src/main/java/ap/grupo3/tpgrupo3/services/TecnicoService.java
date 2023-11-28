@@ -1,6 +1,7 @@
 package ap.grupo3.tpgrupo3.services;
 
 import ap.grupo3.tpgrupo3.models.entity.Cliente;
+import ap.grupo3.tpgrupo3.models.entity.Incidente;
 import ap.grupo3.tpgrupo3.models.entity.Tecnico;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,7 @@ public interface TecnicoService {
     public List<Tecnico> obtenerTodosLosTecnicos();
 
     public void altaDeVariosTecnicos();
+
+    public List<Incidente> obtenerIncidentesPendientes(Long id);
 
 }
