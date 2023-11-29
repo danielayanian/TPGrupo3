@@ -177,9 +177,6 @@ public class RRHHController extends BaseController {
 
     }
 
-
-
-
     @GetMapping(value = "/emitirReportes")
     public String emitirReportes(Model model) {
 
@@ -202,8 +199,6 @@ public class RRHHController extends BaseController {
 
     @GetMapping(value = "pedirN")
     public String pedirN(){
-
-
         return "rrhh/pedirN";
     }
 
@@ -212,6 +207,7 @@ public class RRHHController extends BaseController {
     public String obtenerTecnicoMasIncidentesResueltosNDias(@RequestParam(name = "N") String N,
                                                             Model model) {
 
+        //Terminar
         List<Incidente> incidentes = incidenteService.buscarTodosLosIncidentes();
 
         Date fechaActual = new Date(System.currentTimeMillis());
@@ -224,17 +220,13 @@ public class RRHHController extends BaseController {
                 && (incidente.getResuelto() == 1))
                 .collect(Collectors.toList());
 
-        //Seguir calculando
-
-        model.addAttribute("incidentes", incidentesDeNDiasResueltos);
+        model.addAttribute("nombre", incidentesDeNDiasResueltos.get(0).getTecnico().getNombre());
 
         return "rrhh/tecnicoMasIncidentesResNDias";
     }
 
     @GetMapping(value = "pedirNYEspecialidad")
     public String pedirNYEspecialidad(){
-
-
         return "rrhh/pedirNyEspecialidad";
     }
 
@@ -242,7 +234,7 @@ public class RRHHController extends BaseController {
     public String obtenerTecnicoMasIncidentesResueltosPorEspecialidadNDias(@RequestParam(name = "N") String N,
                                                                            @RequestParam(name = "especialidad") String especialidad,
                                                                            Model model) {
-
+        //Terminar
         List<Incidente> incidentes = incidenteService.buscarTodosLosIncidentes();
 
         Date fechaActual = new Date(System.currentTimeMillis());
@@ -255,10 +247,7 @@ public class RRHHController extends BaseController {
                                 && (incidente.getResuelto() == 1))
                 .collect(Collectors.toList());
 
-        //Seguir calculando
-
-        model.addAttribute("incidentes", incidentesDeNDiasResueltos);
-
+        model.addAttribute("nombre", incidentesDeNDiasResueltos.get(0).getTecnico().getNombre());
 
         return "rrhh/tecnicoMasIncidentesResPorEspNDias";
     }
@@ -266,7 +255,9 @@ public class RRHHController extends BaseController {
     @GetMapping(value = "/obtenerTecnicoMasRapido")
     public String obtenerTecnicoMasRapido(Model model) {
 
-        //Obtener lista de tecnicos y sacar un promedio
+        //Terminar
+        List<Incidente> incidentes = incidenteService.buscarTodosLosIncidentes();
+        model.addAttribute("nombre", incidentes.get(0).getTecnico().getNombre());
 
         return "rrhh/tecnicoMasRapido";
     }
